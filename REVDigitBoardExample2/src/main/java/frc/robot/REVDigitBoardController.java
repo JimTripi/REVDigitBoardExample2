@@ -32,7 +32,7 @@ public class REVDigitBoardController extends REVDigitBoard {
             "  ButtonB: " + getButtonB() + 
             "  Pot: " + getAdjustPotentiometerVoltage() );
 
-            String FourAlphaNumberics = getRobotColorString() + m_StartPositionNumber + "0" + m_ScenarioNumberForPosition;
+        String FourAlphaNumberics = getRobotColorString() + m_StartPositionNumber + "0" + m_ScenarioNumberForPosition;
         display(FourAlphaNumberics);
 
     }

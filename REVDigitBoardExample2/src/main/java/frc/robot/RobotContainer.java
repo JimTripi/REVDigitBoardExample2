@@ -29,14 +29,28 @@ public class RobotContainer {
     Trigger TriggerA = new Trigger(() -> revDigitBoardController.getButtonA());
     TriggerA.onTrue(new InstantCommand(()->{
       revDigitBoardController.setRobotColor(RobotColorEnum.eRed);
+      revDigitBoardController.m_RobotColor = RobotColorEnum.eRed;
       System.out.println("A Pressed");
-    })).onFalse(new InstantCommand(()->{
-      revDigitBoardController.setRobotColor(RobotColorEnum.eBlue);
-      System.out.println("A NOT PRESSED");
-    }));
+    }))
+    // .onFalse(new InstantCommand(()->{
+    //   revDigitBoardController.setRobotColor(RobotColorEnum.eBlue);
+    //   revDigitBoardController.m_RobotColor = RobotColorEnum.eBlue;
+    //   System.out.println("A NOT PRESSED");
+    // }))
+    ;
 
     Trigger TriggerB = new Trigger(() -> revDigitBoardController.getButtonB());
-
+    TriggerB.onTrue(new InstantCommand(()->{
+      revDigitBoardController.setRobotColor(RobotColorEnum.eBlue);
+      revDigitBoardController.m_RobotColor = RobotColorEnum.eBlue;
+      System.out.println("B Pressed");
+    }))
+    // .onFalse(new InstantCommand(()->{
+    //   revDigitBoardController.setRobotColor(RobotColorEnum.eRed);
+    //   revDigitBoardController.m_RobotColor = RobotColorEnum.eRed;
+    //   System.out.println("B NOT PRESSED");
+    // }))
+    ;
   }
 
   public void printRevDigitBoardControllerState() {
