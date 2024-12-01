@@ -140,7 +140,7 @@ public class REVDigitBoard {
  		byte1[8] = charreg[charz[0]][0];
  		byte1[9] = charreg[charz[0]][1];
  		//send the array to the board
-		System.out.println("Pushing Bytes to the Display: " + byte1);
+		//System.out.println("Pushing Bytes to the Display: " + byte1);
 
  		i2c.writeBulk(byte1);
 		//System.out.println("Register is pushed");

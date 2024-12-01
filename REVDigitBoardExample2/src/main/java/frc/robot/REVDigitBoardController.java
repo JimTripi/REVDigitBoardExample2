@@ -23,6 +23,7 @@ public class REVDigitBoardController extends REVDigitBoard {
     public String m_ScenarioNumberForPosition = "1";  // Restrict to characters 1,2,3,... for each Start Position.
 
     public void logRevDigitBoardControllerState() {
+
         System.out.println("RevDigitBoardController>" +  
             "  Color: " + getRobotColorString() + 
             "  StartPosition: " + m_StartPositionNumber + 
@@ -30,6 +31,10 @@ public class REVDigitBoardController extends REVDigitBoard {
             "  ButtonA: " + getButtonA() + 
             "  ButtonB: " + getButtonB() + 
             "  Pot: " + getAdjustPotentiometerVoltage() );
+
+            String FourAlphaNumberics = getRobotColorString() + m_StartPositionNumber + "0" + m_ScenarioNumberForPosition;
+        display(FourAlphaNumberics);
+
     }
   
 }

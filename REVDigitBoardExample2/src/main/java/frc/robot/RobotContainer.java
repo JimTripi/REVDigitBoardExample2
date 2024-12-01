@@ -14,10 +14,12 @@ public class RobotContainer {
 
   //private final REVDigitBoard revDigitBoard = new REVDigitBoard();
   private final REVDigitBoardController revDigitBoardController = new REVDigitBoardController();
-  private double m_pot = 0;
 
   public RobotContainer() {
     configureBindings();
+  }
+
+  public void initialize() {
     revDigitBoardController.clear();
     revDigitBoardController.display("DEAD");
   }
@@ -26,10 +28,10 @@ public class RobotContainer {
 
     Trigger TriggerA = new Trigger(() -> revDigitBoardController.getButtonA());
     TriggerA.onTrue(new InstantCommand(()->{
-      //revDigitBoardController.setRobotColor(RobotColorEnum.eRed);
+      revDigitBoardController.setRobotColor(RobotColorEnum.eRed);
       System.out.println("A Pressed");
     })).onFalse(new InstantCommand(()->{
-      //revDigitBoardController.setRobotColor(RobotColorEnum.eBlue);
+      revDigitBoardController.setRobotColor(RobotColorEnum.eBlue);
       System.out.println("A NOT PRESSED");
     }));
 
