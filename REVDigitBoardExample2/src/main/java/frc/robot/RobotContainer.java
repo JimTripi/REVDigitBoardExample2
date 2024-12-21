@@ -33,6 +33,8 @@ public class RobotContainer {
 
     System.out.println("RobotContainer.configureBindings()");
 
+    // Bindings to not trigger unless RoboRIO is enabled on Driver Station.
+
     // Multiply manual drive by a Large Number (blame Enzo)
     Trigger turboButton = new Trigger(()-> mControllerPrimary.getRawButton(1)); // XBoxController A button
     turboButton.onTrue(new InstantCommand(()->{
