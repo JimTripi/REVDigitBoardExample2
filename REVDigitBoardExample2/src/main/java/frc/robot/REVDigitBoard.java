@@ -52,7 +52,7 @@ public class REVDigitBoard {
 		i2c.writeBulk(osc);
 		Timer.delay(.01);
 
-		i2c.writeBulk(blink2Hz);
+		i2c.writeBulk(blinkOff);
 		Timer.delay(.01);
 
 		i2c.writeBulk(bright);
@@ -187,17 +187,17 @@ public class REVDigitBoard {
 	}
 
 	public void setBlink2Hz() {
-		i2c.writeBulk(bright);
+		i2c.writeBulk(blink2Hz);
 		Timer.delay(.01);
 	}
 
 	public void setBlink1Hz() {
-		i2c.writeBulk(bright);
+		i2c.writeBulk(blink1Hz);
 		Timer.delay(.01);
 	}
 
 	public void setBlinkHalfHz() {
-		i2c.writeBulk(bright);
+		i2c.writeBulk(blinkHalfHz);
 		Timer.delay(.01);
 	}
 
@@ -219,7 +219,7 @@ public class REVDigitBoard {
 		return buttonB;
 	}
     public double getAdjustPotentiometerVoltage(){
-        return pot.getVoltage();
+        return 5.0 - pot.getVoltage();
     }
     private void setupBooleanSuppliers(){
 

@@ -45,34 +45,36 @@ public class RobotContainer {
       System.out.println("XboxController 1 Released");
     }));
 
-    Trigger TriggerA = new Trigger(() -> revDigitBoardController.getButtonA());
-    TriggerA.onTrue(new InstantCommand(()->{
-      revDigitBoardController.setRobotColor(RobotColorEnum.eRed);
-      revDigitBoardController.m_RobotColor = RobotColorEnum.eRed;
-      System.out.println("A Pressed");
-    }))
-    .onFalse(new InstantCommand(()->{
-      System.out.println("A NOT PRESSED");
-    }))
-    ;
 
-    Trigger TriggerB = new Trigger(() -> revDigitBoardController.getButtonB());
-    TriggerB.onTrue(new InstantCommand(()->{
-      revDigitBoardController.setRobotColor(RobotColorEnum.eBlue);
-      revDigitBoardController.m_RobotColor = RobotColorEnum.eBlue;
-      System.out.println("B Pressed");
-    }))
-    .onFalse(new InstantCommand(()->{
-      System.out.println("B NOT PRESSED");
-    }))
-    ;
   }
 
-  public void UpdateLEDsAndPrintRevDigitBoardControllerState() {
-    revDigitBoardController.updateDigitBoardLEDs();
-    revDigitBoardController.logRevDigitBoardControllerState();
-    System.out.println(test);
+  public void processRevDigitBoardController() {
+    revDigitBoardController.processRevDigitBoardController();
   }
+
+
+  //   Trigger TriggerA = new Trigger(() -> revDigitBoardController.getButtonA());
+  //   TriggerA.onTrue(new InstantCommand(()->{
+  //     revDigitBoardController.setRobotColor(RobotColorEnum.eRed);
+  //     revDigitBoardController.m_RobotColor = RobotColorEnum.eRed;
+  //     System.out.println("A Pressed");
+  //   }))
+  //   .onFalse(new InstantCommand(()->{
+  //     System.out.println("A NOT PRESSED");
+  //   }))
+  //   ;
+
+  //   Trigger TriggerB = new Trigger(() -> revDigitBoardController.getButtonB());
+  //   TriggerB.onTrue(new InstantCommand(()->{
+  //     revDigitBoardController.setRobotColor(RobotColorEnum.eBlue);
+  //     revDigitBoardController.m_RobotColor = RobotColorEnum.eBlue;
+  //     System.out.println("B Pressed");
+  //   }))
+  //   .onFalse(new InstantCommand(()->{
+  //     System.out.println("B NOT PRESSED");
+  //   }))
+  //   ;
+  // }
 
   public Command getAutonomousCommand() {
     return Commands.print("No autonomous command configured");
