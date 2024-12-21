@@ -13,37 +13,49 @@ import edu.wpi.first.wpilibj.Timer;
 public class REVDigitBoard {
     private static REVDigitBoard i;
 
-    private I2C i2c;
-    private DigitalInput buttonA;
-    private DigitalInput buttonB;
+    private I2C i2c = new I2C(Port.kMXP, 0x70);;
+    private DigitalInput buttonA = new DigitalInput(19); 
+    private DigitalInput buttonB = new DigitalInput(20);
 
-    private AnalogInput pot;
+    private AnalogInput pot = new AnalogInput(7);
 
     private byte[][] charreg;
     private HashMap<Character,Integer> charmap;
 
-
 	private BooleanSupplier bs_a_button;
 	private BooleanSupplier bs_b_button;
+	
+	// The i2c command structure for the Rev DigitBoard is: 
+	// Top nibble is the command, bottom nibble are the arguments.
 
-    public REVDigitBoard(){
-        i2c = new I2C(Port.kMXP, 0x70);
-		buttonA = new DigitalInput(19);
-		buttonB = new DigitalInput(20);
-		pot = new AnalogInput(7);
-		
-		byte[] osc = new byte[1];
-	 	byte[] blink = new byte[1];
-	 	byte[] bright = new byte[1];
-	 	osc[0] = (byte)0x21;
-	 	blink[0] = (byte)0x81;
-	 	bright[0] = (byte)0xEF;
+	private final byte[] osc = new byte[1];
+
+	private final byte[] blinkOff = new byte[1];
+	private final byte[] blink2Hz = new byte[1];
+	private final byte[] blink1Hz = new byte[1];
+	private final byte[] blinkHalfHz = new byte[1];
+	
+	private final byte[] bright = new byte[1];
+
+    public REVDigitBoard() {
+
+		osc[0] = (byte)0x21;
+
+		blinkOff[0] = (byte)0x81;  
+		blink2Hz[0] = (byte)0x83;
+		blink1Hz[0] = (byte)0x85;
+		blinkHalfHz[0] = (byte)0x87;
+
+		bright[0] = (byte)0xEF;  // lowest nibble is brightness level, so 0xE0 to 0xEF
+
 
 		i2c.writeBulk(osc);
 		Timer.delay(.01);
-		i2c.writeBulk(bright);
+
+		i2c.writeBulk(blink2Hz);
 		Timer.delay(.01);
-		i2c.writeBulk(blink);
+
+		i2c.writeBulk(bright);
 		Timer.delay(.01);
 		
 		charreg = new byte[37][2]; //charreg is short for character registry
@@ -147,6 +159,7 @@ public class REVDigitBoard {
  		Timer.delay(0.01);
 		this.setupBooleanSuppliers();
     }
+
     private String repeat(char c, int n) {
 	    char[] arr = new char[n];
 	    Arrays.fill(arr, c);
@@ -168,6 +181,31 @@ public class REVDigitBoard {
 		this._display(charz);
     }
 
+	public void setBlinkOff() {
+		i2c.writeBulk(blinkOff);
+		Timer.delay(.01);
+	}
+
+	public void setBlink2Hz() {
+		i2c.writeBulk(bright);
+		Timer.delay(.01);
+	}
+
+	public void setBlink1Hz() {
+		i2c.writeBulk(bright);
+		Timer.delay(.01);
+	}
+
+	public void setBlinkHalfHz() {
+		i2c.writeBulk(bright);
+		Timer.delay(.01);
+	}
+
+	public void setBrightness(int brightness) {  // Low 0..15 High
+		i2c.writeBulk(bright);
+		Timer.delay(.01);
+	}
+
     public boolean getButtonA(){
         return !buttonA.get();
     }
@@ -184,6 +222,7 @@ public class REVDigitBoard {
         return pot.getVoltage();
     }
     private void setupBooleanSuppliers(){
+
 		bs_a_button = new BooleanSupplier() {
 
 			@Override
@@ -214,13 +253,20 @@ public class REVDigitBoard {
 			
 		};
 	}
+
 	public BooleanSupplier aButtonSupplier(){
 		return bs_a_button;
 	}
+
+	public BooleanSupplier bButtonSupplier(){
+		return bs_b_button;
+	}
+
     public void clear(){
         int[] charz = {36,36,36,36}; // whyy java
 		this._display(charz);
     }
+
     public static REVDigitBoard getInstance(){
         if(i == null){
             i = new REVDigitBoard();
