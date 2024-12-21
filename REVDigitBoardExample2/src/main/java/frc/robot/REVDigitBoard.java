@@ -169,10 +169,10 @@ public class REVDigitBoard {
     }
 
     public boolean getButtonA(){
-        return buttonA.get();
+        return !buttonA.get();
     }
     public boolean getButtonB(){
-        return buttonB.get();
+        return !buttonB.get();
     }
 	public DigitalInput getAButtonDigitalInputRaw(){
 		return buttonA;

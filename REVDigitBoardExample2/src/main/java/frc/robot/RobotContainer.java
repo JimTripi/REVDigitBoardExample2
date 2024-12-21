@@ -50,8 +50,6 @@ public class RobotContainer {
       System.out.println("A Pressed");
     }))
     .onFalse(new InstantCommand(()->{
-      revDigitBoardController.setRobotColor(RobotColorEnum.eBlue);
-      revDigitBoardController.m_RobotColor = RobotColorEnum.eBlue;
       System.out.println("A NOT PRESSED");
     }))
     ;
@@ -63,8 +61,6 @@ public class RobotContainer {
       System.out.println("B Pressed");
     }))
     .onFalse(new InstantCommand(()->{
-      revDigitBoardController.setRobotColor(RobotColorEnum.eRed);
-      revDigitBoardController.m_RobotColor = RobotColorEnum.eRed;
       System.out.println("B NOT PRESSED");
     }))
     ;
