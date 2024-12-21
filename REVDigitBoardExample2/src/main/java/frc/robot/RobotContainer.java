@@ -9,14 +9,19 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.REVDigitBoardController.RobotColorEnum;
+import frc.lib.AftershockXboxController;
 
 public class RobotContainer {
 
   //private final REVDigitBoard revDigitBoard = new REVDigitBoard();
   private final REVDigitBoardController revDigitBoardController = new REVDigitBoardController();
+  private final AftershockXboxController mControllerPrimary = new AftershockXboxController(0);
+  
+  public boolean test = false;
 
   public RobotContainer() {
     configureBindings();
+    System.out.println("RobotContainer constructor");
   }
 
   public void initialize() {
@@ -26,17 +31,29 @@ public class RobotContainer {
 
   private void configureBindings() {
 
+    System.out.println("RobotContainer.configureBindings()");
+
+    // Multiply manual drive by a Large Number (blame Enzo)
+    Trigger turboButton = new Trigger(()-> mControllerPrimary.getRawButton(1)); // XBoxController A button
+    turboButton.onTrue(new InstantCommand(()->{
+      test = true;
+      System.out.println("XboxController 1 Pressed");
+    })).onFalse(new InstantCommand(()->{
+      test = false;
+      System.out.println("XboxController 1 Released");
+    }));
+
     Trigger TriggerA = new Trigger(() -> revDigitBoardController.getButtonA());
     TriggerA.onTrue(new InstantCommand(()->{
       revDigitBoardController.setRobotColor(RobotColorEnum.eRed);
       revDigitBoardController.m_RobotColor = RobotColorEnum.eRed;
       System.out.println("A Pressed");
     }))
-    // .onFalse(new InstantCommand(()->{
-    //   revDigitBoardController.setRobotColor(RobotColorEnum.eBlue);
-    //   revDigitBoardController.m_RobotColor = RobotColorEnum.eBlue;
-    //   System.out.println("A NOT PRESSED");
-    // }))
+    .onFalse(new InstantCommand(()->{
+      revDigitBoardController.setRobotColor(RobotColorEnum.eBlue);
+      revDigitBoardController.m_RobotColor = RobotColorEnum.eBlue;
+      System.out.println("A NOT PRESSED");
+    }))
     ;
 
     Trigger TriggerB = new Trigger(() -> revDigitBoardController.getButtonB());
@@ -45,16 +62,17 @@ public class RobotContainer {
       revDigitBoardController.m_RobotColor = RobotColorEnum.eBlue;
       System.out.println("B Pressed");
     }))
-    // .onFalse(new InstantCommand(()->{
-    //   revDigitBoardController.setRobotColor(RobotColorEnum.eRed);
-    //   revDigitBoardController.m_RobotColor = RobotColorEnum.eRed;
-    //   System.out.println("B NOT PRESSED");
-    // }))
+    .onFalse(new InstantCommand(()->{
+      revDigitBoardController.setRobotColor(RobotColorEnum.eRed);
+      revDigitBoardController.m_RobotColor = RobotColorEnum.eRed;
+      System.out.println("B NOT PRESSED");
+    }))
     ;
   }
 
   public void printRevDigitBoardControllerState() {
     revDigitBoardController.logRevDigitBoardControllerState();
+    System.out.println(test);
   }
 
   public Command getAutonomousCommand() {
