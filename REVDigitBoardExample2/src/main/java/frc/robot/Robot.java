@@ -29,7 +29,7 @@ public class Robot extends TimedRobot {
     if ((m_intervalCount++ % 50) == 0 ) {
       m_secondsElapsed++;
       System.out.printf("%4d | ",m_secondsElapsed);
-      m_robotContainer.printRevDigitBoardControllerState();
+      m_robotContainer.UpdateLEDsAndPrintRevDigitBoardControllerState();
     }
   }
 

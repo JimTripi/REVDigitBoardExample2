@@ -68,7 +68,8 @@ public class RobotContainer {
     ;
   }
 
-  public void printRevDigitBoardControllerState() {
+  public void UpdateLEDsAndPrintRevDigitBoardControllerState() {
+    revDigitBoardController.updateDigitBoardLEDs();
     revDigitBoardController.logRevDigitBoardControllerState();
     System.out.println(test);
   }
