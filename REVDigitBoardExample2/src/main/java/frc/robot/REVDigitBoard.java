@@ -183,34 +183,34 @@ public class REVDigitBoard {
 
 	public void setBlinkOff() {
 		i2c.writeBulk(blinkOff);
-		Timer.delay(.01);
+		Timer.delay(.001);  // Had to reduce from 0.01 otherwize two cmds in row already blew 20ms budget,spams console.  So far not seeing i2c issue.
 	}
 
 	public void setBlink2Hz() {
 		i2c.writeBulk(blink2Hz);
-		Timer.delay(.01);
+		Timer.delay(.001);
 	}
 
 	public void setBlink1Hz() {
 		i2c.writeBulk(blink1Hz);
-		Timer.delay(.01);
+		Timer.delay(.001);
 	}
 
 	public void setBlinkHalfHz() {
 		i2c.writeBulk(blinkHalfHz);
-		Timer.delay(.01);
+		Timer.delay(.001);
 	}
 
 	public void setBrightness(int brightness) {  // Low 0..15 High
 		i2c.writeBulk(bright);
-		Timer.delay(.01);
+		Timer.delay(.001);
 	}
 
     public boolean getButtonA(){
-        return !buttonA.get();
+        return !buttonA.get(); // invert logic so that pressed = true.
     }
     public boolean getButtonB(){
-        return !buttonB.get();
+        return !buttonB.get(); // invert logic so that pressed = true.
     }
 	public DigitalInput getAButtonDigitalInputRaw(){
 		return buttonA;
@@ -219,7 +219,7 @@ public class REVDigitBoard {
 		return buttonB;
 	}
     public double getAdjustPotentiometerVoltage(){
-        return 5.0 - pot.getVoltage();
+        return 5.0 - pot.getVoltage();  // reverse so Clockwise increases to 5 volts.
     }
     private void setupBooleanSuppliers(){
 

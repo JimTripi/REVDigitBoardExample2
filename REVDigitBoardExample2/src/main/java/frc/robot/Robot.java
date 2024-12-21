@@ -13,9 +13,6 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
 
-  private int m_intervalCount = 0;
-  private int m_secondsElapsed = 0;
-
   @Override
   public void robotInit() {
     m_robotContainer = new RobotContainer();
@@ -25,12 +22,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     CommandScheduler.getInstance().run();
-    
-    if ((m_intervalCount++ % 50) == 0 ) {
-      m_secondsElapsed++;
-      System.out.printf("%4d | ",m_secondsElapsed);
-      m_robotContainer.processRevDigitBoardController();
-    }
+    m_robotContainer.processRevDigitBoardController();
   }
 
   @Override
@@ -44,7 +36,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
-    m_robotContainer.initialize();
+    //m_robotContainer.initialize();
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     if (m_autonomousCommand != null) {
@@ -60,7 +52,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    m_robotContainer.initialize();
+    //m_robotContainer.initialize();
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
