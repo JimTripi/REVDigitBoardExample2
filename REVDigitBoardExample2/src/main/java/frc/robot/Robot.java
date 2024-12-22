@@ -39,7 +39,10 @@ public class Robot extends TimedRobot {
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     if (m_autonomousCommand != null) {
+      System.out.println(">>>>>  Autonomous Sequence Loaded: " + m_autonomousCommand.getName());
       m_autonomousCommand.schedule();
+    } else {
+      System.out.println(">>>>>  Autonomous Sequence Loaded: None");
     }
   }
 

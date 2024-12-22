@@ -30,8 +30,12 @@ public class RobotContainer {
     revDigitBoardController.clear();
     revDigitBoardController.display("DEAD");
     //Arrays.fill(commandTable, Commands.none());
+    
     System.out.println("Ordinal: Red: " + REVDigitBoardController.RobotColorEnum.eRed.ordinal() + 
       "  Blue: " + REVDigitBoardController.RobotColorEnum.eBlue.ordinal());
+
+    setAllSequenceNames();
+
     commandTable[0][0][0] = Commands.none();  // Being explicit: Reserve 0,0,0 for No Command, particularly for unexpected reboot keep robot from runnng inccorect sequence.
     commandTable[REVDigitBoardController.RobotColorEnum.eRed.ordinal()][1][1] = new PrintCommand("A PrintCommand (Red, 1, 1)"); // Change this example to a useful sequence.
     commandTable[REVDigitBoardController.RobotColorEnum.eRed.ordinal()][1][2] = sequenceExample1; // Change this example to a useful sequence.
@@ -99,6 +103,12 @@ public class RobotContainer {
               [scene];
 
       return theCommand;
+  }
+
+  private void setAllSequenceNames() {
+    // Need to do this or else getName retuns SequentialCommandGroup instead of the identifier name.
+    sequenceExample1.setName("sequenceExample1");
+    sequenceExample2.setName("sequenceExample2");
   }
 
   private Command sequenceExample1 = new SequentialCommandGroup(
