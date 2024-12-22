@@ -5,7 +5,7 @@ public class REVDigitBoardController extends REVDigitBoard {
     // Alliance Color
     public enum RobotColorEnum { eRed, eBlue };
     public RobotColorEnum m_RobotColor = RobotColorEnum.eBlue;   //  restrict to R or B (red or blue)
-    public RobotColorEnum getRobotColor() { return (m_RobotColor == RobotColorEnum.eRed) ? RobotColorEnum.eBlue : RobotColorEnum.eRed; }
+    public RobotColorEnum getRobotColor() { return m_RobotColor; }
     public String getRobotColorString() { return ((m_RobotColor == RobotColorEnum.eRed) ? "R" : "B"); }
     public void setRobotColor(RobotColorEnum InColor) {
         m_RobotColor = InColor;
@@ -36,7 +36,7 @@ public class REVDigitBoardController extends REVDigitBoard {
     public final int kFirstScenario = 1;
     public final int kLastScenario = 99;
     public int m_ScenarioNumberForPosition = kFirstScenario;  // Restrict to characters 1,2,3,... for each Start Position.
-    public int getScenarioNumberForPosition() { return m_StartPositionNumber; }
+    public int getScenarioNumberForPosition() { return m_ScenarioNumberForPosition; }
     public String getScenarioNumberForPositionString() { return String.valueOf(m_ScenarioNumberForPosition); }
     public void setScenarioNumberForPosition(int startScenarioNumber) {
         m_ScenarioNumberForPosition = startScenarioNumber;

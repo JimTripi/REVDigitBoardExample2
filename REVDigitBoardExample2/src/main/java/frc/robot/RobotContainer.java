@@ -7,23 +7,35 @@ package frc.robot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.lib.AftershockXboxController;
+import java.util.Arrays;
+import frc.robot.commands.DelayCommand;
+import frc.robot.commands.PrintCommand;
 
 public class RobotContainer {
 
   //private final REVDigitBoard revDigitBoard = new REVDigitBoard();
   private final REVDigitBoardController revDigitBoardController = new REVDigitBoardController();
   private final AftershockXboxController mControllerPrimary = new AftershockXboxController(0);
-  
+  private Command commandTable[][][] = new Command[2][9][99];  // Indices: Color, Position, Scenario. 
+
   public RobotContainer() {
-    configureBindings();
     System.out.println("RobotContainer constructor");
+    configureBindings();
   }
 
   public void initialize() {
     revDigitBoardController.clear();
     revDigitBoardController.display("DEAD");
+    //Arrays.fill(commandTable, Commands.none());
+    System.out.println("Ordinal: Red: " + REVDigitBoardController.RobotColorEnum.eRed.ordinal() + 
+      "  Blue: " + REVDigitBoardController.RobotColorEnum.eBlue.ordinal());
+    commandTable[0][0][0] = Commands.none();  // Being explicit: Reserve 0,0,0 for No Command, particularly for unexpected reboot keep robot from runnng inccorect sequence.
+    commandTable[REVDigitBoardController.RobotColorEnum.eRed.ordinal()][1][1] = new PrintCommand("A PrintCommand (Red, 1, 1)"); // Change this example to a useful sequence.
+    commandTable[REVDigitBoardController.RobotColorEnum.eRed.ordinal()][1][2] = sequenceExample1; // Change this example to a useful sequence.
+    commandTable[REVDigitBoardController.RobotColorEnum.eBlue.ordinal()][1][1] = sequenceExample2;  // Change this example to a useful sequence.
   }
 
   private void configureBindings() {
@@ -75,6 +87,28 @@ public class RobotContainer {
   // }
 
   public Command getAutonomousCommand() {
-    return Commands.print("No autonomous command configured");
+    //return Commands.print("No autonomous command configured");
+
+    int color = revDigitBoardController.getRobotColor().ordinal();
+    int pos = revDigitBoardController.getRobotStartPositionNumber();
+    int scene = revDigitBoardController.getScenarioNumberForPosition();
+
+    Command theCommand = commandTable
+              [color]
+              [pos]
+              [scene];
+
+      return theCommand;
   }
+
+  private Command sequenceExample1 = new SequentialCommandGroup(
+    (new DelayCommand(0.1)).andThen(new PrintCommand("Example1: (Red, 1, 2)"))
+  ); 
+
+  private Command sequenceExample2 = new SequentialCommandGroup(
+    (new DelayCommand(0.1)).andThen(new PrintCommand("Example2 (Blue, 1, 1)"))
+  ); 
+
+
+
 }
