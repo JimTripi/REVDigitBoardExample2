@@ -38,6 +38,7 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
+    m_robotContainer.logRevDigitBoardControllerState();
     if (m_autonomousCommand != null) {
       System.out.println(">>>>>  Autonomous Sequence Loaded: " + m_autonomousCommand.getName());
       m_autonomousCommand.schedule();

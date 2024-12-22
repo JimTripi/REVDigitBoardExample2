@@ -62,6 +62,10 @@ public class RobotContainer {
     revDigitBoardController.processRevDigitBoardController();
   }
 
+  public void logRevDigitBoardControllerState() {
+    revDigitBoardController.logRevDigitBoardControllerState();
+  }
+
   /////////////////// Trigger objects only do work when Drive Station is ENABLE,
   //  which fails to serve our purpose to make setting changes while the robot is disabled (before match start).
   //  Left working tested code here for reference, but can't think of a use-case at real events.  This is why
