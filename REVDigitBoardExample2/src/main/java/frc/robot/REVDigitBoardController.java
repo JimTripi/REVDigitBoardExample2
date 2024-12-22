@@ -15,7 +15,7 @@ public class REVDigitBoardController extends REVDigitBoard {
     }
 
     // Robot starting position
-    public final int kFirstPosition = 1;
+    public final int kFirstPosition = 0;
     public final int kLastPosition = 9;
     public int m_StartPositionNumber = kFirstPosition;  // Restrict to characters 1,2,3
     public int getRobotStartPositionNumber() { return m_StartPositionNumber; }
@@ -24,11 +24,11 @@ public class REVDigitBoardController extends REVDigitBoard {
         m_StartPositionNumber = startPositionNumber;
     }
     public void incrementRobotStartPosition() { 
-        m_StartPositionNumber += kFirstPosition; 
+        m_StartPositionNumber++; 
         if (m_StartPositionNumber > kLastPosition) m_StartPositionNumber = kFirstPosition;  // single digit, wrap around
     }  
     public void decrementRobotStartPosition() { 
-        m_StartPositionNumber -= 1;  
+        m_StartPositionNumber--;  
         if (m_StartPositionNumber < kFirstPosition) m_StartPositionNumber = kLastPosition; 
     }
 
@@ -42,11 +42,11 @@ public class REVDigitBoardController extends REVDigitBoard {
         m_ScenarioNumberForPosition = startScenarioNumber;
     }
     public void incrementScenarioNumberForPosition() { 
-        m_ScenarioNumberForPosition += 1; 
+        m_ScenarioNumberForPosition++; 
         if (m_ScenarioNumberForPosition > kLastScenario) m_ScenarioNumberForPosition = kFirstScenario; // two digits, wrap around
     } 
     public void decrementScenarioNumberForPosition() { 
-        m_ScenarioNumberForPosition -= 1;  
+        m_ScenarioNumberForPosition--;  
         if (m_ScenarioNumberForPosition < kFirstScenario) m_ScenarioNumberForPosition = kLastScenario; 
     }
 

@@ -19,7 +19,7 @@ public class RobotContainer {
   //private final REVDigitBoard revDigitBoard = new REVDigitBoard();
   private final REVDigitBoardController revDigitBoardController = new REVDigitBoardController();
   private final AftershockXboxController mControllerPrimary = new AftershockXboxController(0);
-  private Command commandTable[][][] = new Command[2][9][99];  // Indices: Color, Position, Scenario. 
+  private Command commandTable[][][] = new Command[2][10][100];  // Indices: Color, Position, Scenario. 
 
   public RobotContainer() {
     System.out.println("RobotContainer constructor");
